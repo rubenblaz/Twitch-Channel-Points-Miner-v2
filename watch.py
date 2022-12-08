@@ -4,15 +4,35 @@ from TwitchChannelPointsMiner.classes.Settings import FollowersOrder
 import os
 
 from flask import Flask, jsonify, request
-#import PTN
-import os
 from guessit import guessit
 
-channels = "rocketleague,eltitoyoutube,rocketleagueapac,rocketleagueoce,rocketbaguette,rocketbenelux,rocketstreetlive,knockoutcity,EASPORTSFIFA,hustle,Tocata,robz,ZepXP,lobapsd,elded,weplayrocketleague,theorderofdylan,katiepeircee,hitbotc,rageatreyu,behavingbeardly,nateacuiki,nexergames,enviosity"
+app = Flask(__name__)
 
-twitch_miner = TwitchChannelPointsMiner(
-        username="rublr",
-        password="A123456789a",            # If no password will be provided, the script will ask interactively
+@app.route('/')
+def hello_world():
+    channels = os.environ.get("channels")
+    twitch_miner = TwitchChannelPointsMiner(
+        username=os.environ.get("username"),
+        password=os.environ.get("password"),            # If no password will be provided, the script will ask interactively
         claim_drops_startup=True,                  # If you want to auto claim all drops from Twitch inventory on the startup
-)
-twitch_miner.mine(channels.split(','), followers=False) 
+    )
+    twitch_miner.mine(channels.split(','), followers=False) 
+
+    
+    
+@app.route('/parse', methods=['POST'])
+def parse():
+    filename = request.get_json()
+    print(filename)
+
+    #pretty_names = PTN.parse(filename)
+    pretty_names = guessit(filename)
+    pretty_names.pop('language', None)
+    pretty_names.pop('country', None)
+    print(pretty_names)
+    #aux = pretty_names.split(', ')
+    return jsonify(pretty_names)
+
+if __name__ == '__main__':
+    #port = int(os.environ.get('PORT', 8000))
+    app.run()
