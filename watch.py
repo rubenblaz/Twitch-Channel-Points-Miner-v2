@@ -8,8 +8,8 @@ from guessit import guessit
 
 from multiprocessing import Process
 
-global server
-server = None
+
+#server = None
 app = Flask(__name__)
 
 @app.route('/')
