@@ -8,6 +8,7 @@ from guessit import guessit
 
 from multiprocessing import Process
 
+global server
 server = None
 app = Flask(__name__)
 
@@ -42,7 +43,6 @@ def parse():
 if __name__ == '__main__':
     #port = int(os.environ.get('PORT', 8000))
     #app.run()
-    server = None
     global server
     server = Process(target=app.run)
     server.start()
