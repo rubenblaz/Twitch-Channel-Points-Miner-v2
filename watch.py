@@ -9,7 +9,7 @@ from guessit import guessit
 from multiprocessing import Process
 
 
-#server = None
+server = None
 app = Flask(__name__)
 
 @app.route('/')
@@ -24,7 +24,6 @@ def hello_world():
     
 @app.route('/stop')
 def stop():
-    global server
     server.terminate()
     
 @app.route('/parse', methods=['POST'])
