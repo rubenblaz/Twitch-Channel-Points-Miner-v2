@@ -6,6 +6,8 @@ import os
 from flask import Flask, jsonify, request
 from guessit import guessit
 
+import sys
+
 app = Flask(__name__)
 
 @app.route('/')
@@ -16,9 +18,11 @@ def hello_world():
         password=os.environ.get("password"),            # If no password will be provided, the script will ask interactively
         claim_drops_startup=True,                  # If you want to auto claim all drops from Twitch inventory on the startup
     )
-    twitch_miner.mine(channels.split(','), followers=False) 
-
+    twitch_miner.mine(channels.split(','), followers=False)
     
+@app.route('/stop')
+def stop():
+    sys.exit(4)
     
 @app.route('/parse', methods=['POST'])
 def parse():
