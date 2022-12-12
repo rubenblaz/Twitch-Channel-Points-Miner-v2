@@ -6,8 +6,9 @@ import os
 from flask import Flask, jsonify, request
 from guessit import guessit
 
-import sys
+from multiprocessing import Process
 
+server = None
 app = Flask(__name__)
 
 @app.route('/')
@@ -22,7 +23,8 @@ def hello_world():
     
 @app.route('/stop')
 def stop():
-    sys.exit(4)
+    global server
+    server.terminate()
     
 @app.route('/parse', methods=['POST'])
 def parse():
@@ -39,4 +41,7 @@ def parse():
 
 if __name__ == '__main__':
     #port = int(os.environ.get('PORT', 8000))
-    app.run()
+    #app.run()
+    global server
+    server = Process(target=app.run)
+    server.start()
