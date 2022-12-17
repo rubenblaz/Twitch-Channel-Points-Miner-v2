@@ -6,10 +6,6 @@ import os
 from flask import Flask, jsonify, request
 from guessit import guessit
 
-from multiprocessing import Process
-
-
-server = None
 app = Flask(__name__)
 
 @app.route('/')
@@ -20,11 +16,9 @@ def hello_world():
         password=os.environ.get("password"),            # If no password will be provided, the script will ask interactively
         claim_drops_startup=True,                  # If you want to auto claim all drops from Twitch inventory on the startup
     )
-    twitch_miner.mine(channels.split(','), followers=False)
+    twitch_miner.mine(channels.split(','), followers=False) 
+
     
-@app.route('/stop')
-def stop():
-    server.terminate()
     
 @app.route('/parse', methods=['POST'])
 def parse():
@@ -41,8 +35,4 @@ def parse():
 
 if __name__ == '__main__':
     #port = int(os.environ.get('PORT', 8000))
-    #app.run()
-    server = None
-    global server
-    server = Process(target=app.run)
-    server.start()
+    app.run()
