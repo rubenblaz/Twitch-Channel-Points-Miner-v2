@@ -23,5 +23,3 @@ def hello_world():
 if __name__ == '__main__':
     #port = int(os.environ.get('PORT', 8000))
     app.run()
-    time.sleep(240)
-    request.get('https://intact-daffy-dubidu93.koyeb.app/')
