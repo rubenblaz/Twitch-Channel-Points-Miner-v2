@@ -6,6 +6,8 @@ import os
 from flask import Flask, jsonify, request
 from guessit import guessit
 
+import time
+
 app = Flask(__name__)
 
 @app.route('/')
@@ -21,4 +23,5 @@ def hello_world():
 if __name__ == '__main__':
     #port = int(os.environ.get('PORT', 8000))
     app.run()
-    request.get('/')
+    time.sleep(240)
+    request.get('https://intact-daffy-dubidu93.koyeb.app/')
