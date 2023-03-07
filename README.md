@@ -41,7 +41,6 @@ Currently, we have a lot of PRs requests opened, but the time to test and improv
     - [Final report](#final-report)
 4. 🧐 [How to use](#how-to-use)
     - [Cloning](#by-cloning-the-repository)
-    - [pip](#pip)
     - [Docker](#docker)
     - [Replit](#replit)
     - [Limits](#limits)
@@ -217,6 +216,7 @@ twitch_miner = TwitchChannelPointsMiner(
         Priority.ORDER                          # - When we have all of the drops claimed and no watch-streak available, use the order priority (POINTS_ASCENDING, POINTS_DESCEDING)
     ],
     enable_analytics=False,			# Disables Analytics if False. Disabling it significantly reduces memory consumption
+    disable_ssl_cert_verification=False,	# Set to True at your own risk and only to fix SSL: CERTIFICATE_VERIFY_FAILED error
     logger_settings=LoggerSettings(
         save=True,                              # If you want to save logs in a file (suggested)
         console_level=logging.INFO,             # Level of logs - use logging.DEBUG for more info
@@ -320,11 +320,6 @@ pip install -r requirements.txt
 ```
 
 Start mining! `python run.py` 🥳
-
-### <s>pip</s> deprecated
-<s>Install the package via pip, you will find a stable version - maybe a different version from the master branch.
-- `pip install Twitch-Channel-Points-Miner-v2`
-- Exceute the run.py file `python run.py` 🥳</s>
 
 ### Docker
 
